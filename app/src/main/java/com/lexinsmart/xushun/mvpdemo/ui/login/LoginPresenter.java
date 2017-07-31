@@ -26,40 +26,49 @@ import io.reactivex.schedulers.Schedulers;
 
 public class LoginPresenter extends BasePresenterImpl<LoginContract.View> implements LoginContract.Presenter{
 
+    LoginContract.Model mModel = new LoginModelImp();
     @Override
     public void login(String username, String psd) {
         mView.showLogin();
 
+        if (mModel != null){
+            mModel.loadLoginResult(new LoginContract.Model.LoginLoadListener() {
+                @Override
+                public void onComplete(LoginResult loginResult) {
+                    mView.showSucess();
+                }
+            },username,psd);
+        }
 
-        Observer<LoginResult> mSubscriber;
-
-        mSubscriber = new Observer<LoginResult>() {
-
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-
-            }
-
-            @Override
-            public void onNext(@NonNull LoginResult loginResult) {
-                Gson gson = new Gson();
-                Logger.json(gson.toJson(loginResult));
-            }
-
-            @Override
-            public void onError(@NonNull Throwable e) {
-
-            }
-
-            @Override
-            public void onComplete() {
-
-            }
-        };
-
-        Observable observable = NetWorks.getInstance().getmCommonApi().login(username,psd);
-
-        toSubscribe(observable,mSubscriber);
+//        Observer<LoginResult> mSubscriber;
+//
+//        mSubscriber = new Observer<LoginResult>() {
+//
+//            @Override
+//            public void onSubscribe(@NonNull Disposable d) {
+//
+//            }
+//
+//            @Override
+//            public void onNext(@NonNull LoginResult loginResult) {
+//                Gson gson = new Gson();
+//                Logger.json(gson.toJson(loginResult));
+//            }
+//
+//            @Override
+//            public void onError(@NonNull Throwable e) {
+//
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//
+//            }
+//        };
+//
+//        Observable observable = NetWorks.getInstance().getmCommonApi().login(username,psd);
+//
+//        toSubscribe(observable,mSubscriber);
 
     }
     private <T> void toSubscribe(Observable<T> o, Observer<T> s){

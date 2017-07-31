@@ -37,16 +37,27 @@ public class LoginActivity extends MVPBaseActivity<LoginContract.View, LoginPres
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        if (mPresenter != null){
+            mPresenter.attachView(this);
+        }
 
     }
 
     @OnClick(R.id.button2)
     public void login(){
-        mPresenter.login("xushun","123456");
+        String uname = mEditText.getText().toString();
+        String psd = mEditText2.getText().toString();
+        mPresenter.login(uname,psd);
     }
     @Override
     public void showLogin() {
-        Toast.makeText(this,"login",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,"login ing",Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void showSucess() {
+        Toast.makeText(this,"ok",Toast.LENGTH_SHORT).show();
 
     }
 }
