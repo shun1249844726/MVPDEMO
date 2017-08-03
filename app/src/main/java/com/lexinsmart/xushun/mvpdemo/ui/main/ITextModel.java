@@ -7,12 +7,18 @@ package com.lexinsmart.xushun.mvpdemo.ui.main;
  * 心情：
  */
 public interface ITextModel {
+    /**
+     * 加载文字的方法m,hkjh kjhkjh kjhkljhj
+     * @param listener 拉地方阿林大哥啊
+     */
     void loadText(TextLoadListener listener);
 
+    /**
+     * 接口。。。
+     */
     interface TextLoadListener {
         /**
-         * 加载完成监听
-         *
+         * 接口完成的方法?
          * @param text
          */
         void onComplete(String text);

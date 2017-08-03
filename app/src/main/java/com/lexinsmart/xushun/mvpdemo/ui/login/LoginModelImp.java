@@ -53,6 +53,7 @@ public class LoginModelImp implements LoginContract.Model{
 
         toSubscribe(observable,mSubscriber);
     }
+
     private <T> void toSubscribe(Observable<T> o, Observer<T> s){
         o.subscribeOn(Schedulers.io())
                 .unsubscribeOn(Schedulers.io())
